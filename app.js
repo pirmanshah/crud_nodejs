@@ -13,6 +13,12 @@ const router = require('./routes/index.routes');
 
 app.use(router);
 
+app.use((req, res) => {
+    res.status(404).render('404', {
+        title: 'Page Not Found',
+    });
+})
+
 app.listen(port, () => {
     console.log(`🚀 server running on port: ${port}`);
 });
