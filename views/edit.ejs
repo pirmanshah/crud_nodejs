@@ -1,0 +1,18 @@
+<%- include('./include/header.ejs') %> 
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 p-5 text-center">
+            <form class="mb-5" action="" method="POST">
+                <div class="form-group">
+                  <input type="text" class="form-control" value="<%= user.name %>" name="name" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Edit</button>
+                <a href="/delete/<%= user.id %>" class="btn btn-danger btn-block">Delete</a>
+              </form>
+            <a href="/">Back</a>
+        </div>
+    </div>
+</div>
+
+<%- include('./include/footer.ejs') %> 
