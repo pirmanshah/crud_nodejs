@@ -6,7 +6,9 @@ module.exports = {
             const users = await User.getAll();
             res.render('index', {
                 title: 'Home Page',
-                users: users[0]
+                users: users[0],
+                msgSuccess: null,
+                deleteMsg: null
             });
         } catch (err) {
             console.log(err);
@@ -24,7 +26,9 @@ module.exports = {
         .then(users => {
             res.render('index', {
                 title: 'Home Page',
-                users: users[0]
+                users: users[0],
+                msgSuccess: true,
+                deleteMsg: null
             });
         })
         .catch(err => {
@@ -35,10 +39,15 @@ module.exports = {
         const id = req.params.id;
         try {
             const user = await User.getById(id);
-            res.render('edit', {
-                title: 'Edit Page',
-                user: user[0][0]
-            });
+            if(user[0].length > 0){
+                res.render('edit', {
+                    title: 'Edit Page',
+                    user: user[0][0],
+                    msgSuccess: null
+                });
+            } else {
+                res.redirect('/404');
+            }
         } catch (err) {
             console.log(err);
         }
@@ -50,8 +59,9 @@ module.exports = {
             const update = await User.update(name, id);
             const user = await User.getById(id);
             res.render('edit', {
-                title: 'Home Page',
-                user: user[0][0]
+                title: 'Edit Page',
+                user: user[0][0],
+                msgSuccess: true
             });
         } catch (err) {
             console.log(err);
@@ -61,7 +71,15 @@ module.exports = {
         const id = req.params.id;
         User.delete(id)
         .then(()=> {
-            res.redirect(`/`);
+            return User.getAll()
+        })
+        .then(users => {
+            res.render('index', {
+                title: 'Home Page',
+                users: users[0],
+                msgSuccess: null,
+                deleteMsg: true
+            });
         })
         .catch(err => {
             console.log(err);

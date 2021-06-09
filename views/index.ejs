@@ -1,5 +1,12 @@
 <%- include('./include/header.ejs') %> 
 
+<% if(msgSuccess) { %>
+    <input hidden type="text" id="msgSuccess" value="Insert data success!">
+<% } %> 
+<% if(deleteMsg) { %>
+    <input hidden type="text" id="deleteMsg" value="Delete data success!">
+<% } %> 
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-4 p-5">
